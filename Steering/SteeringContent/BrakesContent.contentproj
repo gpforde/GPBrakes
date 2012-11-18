@@ -164,13 +164,6 @@
       <Name>brakeshoeright2</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="brakeshoeright3.FBX">
-      <Name>brakeshoeright3</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
       <ProcessorParameters_RotationY>270</ProcessorParameters_RotationY>
       <ProcessorParameters_RotationZ>270</ProcessorParameters_RotationZ>
@@ -181,6 +174,16 @@
       <Name>ground1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrakeShoeRight13.FBX">
+      <Name>BrakeShoeRight13</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationY>270</ProcessorParameters_RotationY>
+      <ProcessorParameters_RotationZ>270</ProcessorParameters_RotationZ>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

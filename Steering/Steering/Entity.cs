@@ -40,6 +40,14 @@ namespace BrakingSystem
         public Color colour;
         float mass = 1.0f;
 
+        private bool hasColor;
+
+        public bool HasColor
+        {
+            get { return hasColor; }
+            set { hasColor = value; }
+        }
+
         public Matrix worldTransform = new Matrix();
         public Matrix localTransform = Matrix.Identity;
 
@@ -83,7 +91,10 @@ namespace BrakingSystem
                     {
                         effect.EnableDefaultLighting();
                         effect.PreferPerPixelLighting = true;
-                        effect.DiffuseColor = diffuse;
+                        if (hasColor)
+                        {
+                            effect.DiffuseColor = diffuse;
+                        }
                         effect.World = localTransform * worldTransform;
                         effect.Projection = XNAGame.Instance().Camera.getProjection();
                         effect.View = XNAGame.Instance().Camera.getView();

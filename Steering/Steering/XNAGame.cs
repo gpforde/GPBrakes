@@ -10,6 +10,11 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
 using BEPUphysics.Entities.Prefabs;
+using BEPUphysics.MathExtensions;
+using BEPUphysics.Constraints.TwoEntity.Joints;
+using BEPUphysics.Constraints.SolverGroups;
+using BEPUphysics.Collidables.MobileCollidables;
+using BEPUphysics.DataStructures;
 
 namespace BrakingSystem
 {
@@ -105,7 +110,7 @@ namespace BrakingSystem
             children.Add(brakeshoeleft);
 
             BrakeShoeRight brakeshoeright = new BrakeShoeRight();
-            brakeshoeright.pos.X = (float)3.3; brakeshoeright.pos.Y = (float)9.9; brakeshoeright.pos.Z = (float)29.25;
+            brakeshoeright.pos.X = (float)3.5; brakeshoeright.pos.Y = (float)9.9; brakeshoeright.pos.Z = (float)29.25;
             children.Add(brakeshoeright);
 
             base.Initialize();
@@ -121,15 +126,16 @@ namespace BrakingSystem
             {
                 createCylinder(new Vector3(0, y, 0), 0, 0, 0);
             }
-            for (float y = 70; y > 20; y -= 5)
-            {
-                createShoeLeft(new Vector3(0, y, 0), 0, 0, 0);
-            }
+          //  for (float y = 70; y > 20; y -= 5)
+          //  {
+            //    createShoeLeft(new Vector3(0, y, 0), 0, 0, 0);
+            //}
+            /*
             for (float y = 70; y > 20; y -= 5)
             {
                 createShoeRight(new Vector3(0, y, 0), 0, 0, 0);
             }
-            
+            */
             
         }
         void createCylinder(Vector3 position, float width, float height, float length)
@@ -141,7 +147,9 @@ namespace BrakingSystem
             theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
             space.Add(theBox.body);
             children.Add(theBox);
+            theBox.HasColor = true;
         }
+        /*
         void createShoeLeft(Vector3 position, float width, float height, float length)
         {
             BepuEntity theBox = new BepuEntity();
@@ -151,7 +159,47 @@ namespace BrakingSystem
             theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
             space.Add(theBox.body);
             children.Add(theBox);
+        }*/
+        BepuEntity createShoeLeft(Vector3 position, string mesh, float scale)
+        {
+            BepuEntity entity = new BepuEntity();
+            entity.modelName = mesh;
+            entity.LoadContent();
+            Vector3[] vertices;
+            int[] indices;
+            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
+            AffineTransform localTransform = new AffineTransform(new Vector3(scale, scale, scale), Quaternion.Identity, new Vector3(0, 0, 0));
+            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
+            entity.localTransform = Matrix.CreateScale(scale, scale, scale);
+            entity.body = mobileMesh;
+            entity.HasColor = true;
+            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            entity.body.Position = position;
+            space.Add(entity.body);
+            children.Add(entity);
+            return entity;
         }
+
+        BepuEntity createShoeRight(Vector3 position, string mesh, float scale)
+        {
+            BepuEntity entity = new BepuEntity();
+            entity.modelName = mesh;
+            entity.LoadContent();
+            Vector3[] vertices;
+            int[] indices;
+            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
+            AffineTransform localTransform = new AffineTransform(new Vector3(scale, scale, scale), Quaternion.Identity, new Vector3(0, 0, 0));
+            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
+            entity.localTransform = Matrix.CreateScale(scale, scale, scale);
+            entity.body = mobileMesh;
+            entity.HasColor = true;
+            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            entity.body.Position = position;
+            space.Add(entity.body);
+            children.Add(entity);
+            return entity;
+        }
+        /*
         void createShoeRight(Vector3 position, float width, float height, float length)
         {
             BepuEntity theBox = new BepuEntity();
@@ -162,10 +210,12 @@ namespace BrakingSystem
             space.Add(theBox.body);
             children.Add(theBox);
         }
+         */ 
        protected override void LoadContent()
         {
        
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            space = null;
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
             Box groundBox = new Box(Vector3.Zero, ground.width, 0.1f, ground.height);
