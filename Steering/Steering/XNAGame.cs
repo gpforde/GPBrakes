@@ -85,16 +85,16 @@ namespace BrakingSystem
             
          
             SlaveCylinder slavecylinder = new SlaveCylinder();
-            slavecylinder.pos.X = 3; slavecylinder.pos.Y = 10; slavecylinder.pos.Z = 30;
+            slavecylinder.pos.X = (float) 3.25; slavecylinder.pos.Y = (float)10.5; slavecylinder.pos.Z = (float)28.8;
             children.Add(slavecylinder);
 
 
             SlavePiston slavepiston = new SlavePiston();
-            slavepiston.pos.X = 3; slavepiston.pos.Y = 10; slavepiston.pos.Z = (float)30.5;
+            slavepiston.pos.X = (float)3.25; slavepiston.pos.Y = (float)10.5; slavepiston.pos.Z = (float)28.8;
             children.Add(slavepiston);
 
             SlavePiston slavepiston2 = new SlavePiston();
-            slavepiston2.pos.X = 3; slavepiston2.pos.Y = 10; slavepiston2.pos.Z = 30;
+            slavepiston2.pos.X = (float)3.25; slavepiston2.pos.Y = (float)10.5; slavepiston2.pos.Z = (float)29;
             children.Add(slavepiston2);
 
             Chassis chassis = new Chassis();
@@ -110,7 +110,7 @@ namespace BrakingSystem
             children.Add(brakeshoeleft);
 
             BrakeShoeRight brakeshoeright = new BrakeShoeRight();
-            brakeshoeright.pos.X = (float)3.5; brakeshoeright.pos.Y = (float)9.9; brakeshoeright.pos.Z = (float)29.25;
+            brakeshoeright.pos.X = (float)3.05; brakeshoeright.pos.Y = (float)9.9; brakeshoeright.pos.Z = (float)29.25;
             children.Add(brakeshoeright);
 
             base.Initialize();
@@ -125,6 +125,21 @@ namespace BrakingSystem
             for (float y = 70; y > 20; y -= 5)
             {
                 createCylinder(new Vector3(0, y, 0), 0, 0, 0);
+            }
+            
+            for (float y = 70; y > 20; y -= 5)
+            {
+                createShoeRight(new Vector3(0, y, 0), "BrakeShoeRight23" ,1);
+            }
+            /*
+            for (float y = 70; y > 20; y -= 5)
+            {
+                createShoeLeft(new Vector3(0, y, 0), 0, 0, 0);
+            }
+             */ 
+            for (float y = 70; y > 20; y -= 5)
+            {
+                createPiston1(new Vector3(0, y, 0), 0, 0, 0);
             }
           //  for (float y = 70; y > 20; y -= 5)
           //  {
@@ -142,6 +157,18 @@ namespace BrakingSystem
         {        
             BepuEntity theBox = new BepuEntity();
             theBox.modelName = "SlaveCylinder";
+            theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+            theBox.body = new Box(position, width, height, length, 1);
+            theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            space.Add(theBox.body);
+            children.Add(theBox);
+            theBox.HasColor = true;
+        }
+
+        void createPiston1(Vector3 position, float width, float height, float length)
+        {
+            BepuEntity theBox = new BepuEntity();
+            theBox.modelName = "slavepiston";
             theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
             theBox.body = new Box(position, width, height, length, 1);
             theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());

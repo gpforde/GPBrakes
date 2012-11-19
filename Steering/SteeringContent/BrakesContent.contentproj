@@ -97,7 +97,7 @@
       <Name>SlaveCylinder</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>0.03</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -105,7 +105,7 @@
       <Name>slavepiston</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>0.03</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -160,8 +160,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="brakeshoeright2.FBX">
-      <Name>brakeshoeright2</Name>
+    <Compile Include="ground1.jpg">
+      <Name>ground1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrakeShoeRight18.FBX">
+      <Name>BrakeShoeRight18</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
@@ -170,19 +177,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ground1.jpg">
-      <Name>ground1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+    <Compile Include="BrakeShoeRight19.FBX">
+      <Name>BrakeShoeRight19</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
+      <ProcessorParameters_RotationZ>270</ProcessorParameters_RotationZ>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrakeShoeRight13.FBX">
-      <Name>BrakeShoeRight13</Name>
+    <Compile Include="BrakeShoeRight21.FBX">
+      <Name>BrakeShoeRight21</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
       <ProcessorParameters_RotationY>270</ProcessorParameters_RotationY>
+      <ProcessorParameters_RotationZ>270</ProcessorParameters_RotationZ>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrakeShoeRight23.FBX">
+      <Name>BrakeShoeRight23</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
       <ProcessorParameters_RotationZ>270</ProcessorParameters_RotationZ>
     </Compile>
   </ItemGroup>

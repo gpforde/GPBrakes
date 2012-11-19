@@ -25,7 +25,7 @@ namespace BrakingSystem
 
         public override void LoadContent()
         {
-            model = XNAGame.Instance().Content.Load<Model>("brakeshoeright13");
+            model = XNAGame.Instance().Content.Load<Model>("BrakeShoeRight23");
         }
 
         public void push(Vector3 force)
