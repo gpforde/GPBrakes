@@ -113,6 +113,10 @@ namespace BrakingSystem
             brakeshoeright.pos.X = (float)3.05; brakeshoeright.pos.Y = (float)9.9; brakeshoeright.pos.Z = (float)29.25;
             children.Add(brakeshoeright);
 
+
+            Wheel wheel = new Wheel();
+            wheel.pos.X = (float)3.05; wheel.pos.Y = (float)9.9; wheel.pos.Z = (float)29.25;
+            children.Add(wheel);
             base.Initialize();
         }
         void createTower()
@@ -145,6 +149,11 @@ namespace BrakingSystem
             for (float y = 2; y > 1; y -= 1)
             {
                 createPiston1(new Vector3(0, y, 0), 0, 0, 0);
+            }
+
+            for (float y = 2; y > 1; y -= 1)
+            {
+                createWheel(new Vector3(4, y, 30), "Wheels4", 1);
             }
           //  for (float y = 70; y > 20; y -= 5)
           //  {
@@ -214,6 +223,26 @@ namespace BrakingSystem
         }
 
         BepuEntity createShoeRight(Vector3 position, string mesh, float scale)
+        {
+            BepuEntity entity = new BepuEntity();
+            entity.modelName = mesh;
+            entity.LoadContent();
+            Vector3[] vertices;
+            int[] indices;
+            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
+            AffineTransform localTransform = new AffineTransform(new Vector3(scale, scale, scale), Quaternion.Identity, new Vector3(0, 0, 0));
+            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
+            entity.localTransform = Matrix.CreateScale(scale, scale, scale);
+            entity.body = mobileMesh;
+            entity.HasColor = true;
+            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            entity.body.Position = position;
+            space.Add(entity.body);
+            children.Add(entity);
+            return entity;
+        }
+
+        BepuEntity createWheel(Vector3 position, string mesh, float scale)
         {
             BepuEntity entity = new BepuEntity();
             entity.modelName = mesh;

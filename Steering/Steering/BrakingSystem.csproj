@@ -115,6 +115,7 @@
     <Compile Include="Chassis.cs" />
     <Compile Include="BrakeShoeLeft.cs" />
     <Compile Include="BrakeShoeRight.cs" />
+    <Compile Include="Wheel.cs" />
     <Compile Include="Hub.cs" />
     <Compile Include="SlavePiston.cs" />
     <Compile Include="SlaveCylinder.cs" />
