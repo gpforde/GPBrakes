@@ -130,7 +130,7 @@ namespace BrakingSystem
             {
                 createCylinder(new Vector3(0, y, 0), 0, 0, 0);
             }
-            
+            /*
             for (float y = 1; y > 0; y -= 1)
             {
                 createShoeRight(new Vector3(0, y, 0), "BrakeShoeRight23" ,1);
@@ -145,12 +145,12 @@ namespace BrakingSystem
             {
                 createShoeLeft(new Vector3(0, y, 0), 0, 0, 0);
             }
-             */ 
+              */
             for (float y = 2; y > 1; y -= 1)
             {
                 createPiston1(new Vector3(0, y, 0), 0, 0, 0);
             }
-
+            
             for (float y = 2; y > 1; y -= 1)
             {
                 createWheel(new Vector3(4, y, 30), "Wheels4", 1);
@@ -201,7 +201,7 @@ namespace BrakingSystem
             space.Add(theBox.body);
             children.Add(theBox);
         }*/
-
+        /*
         BepuEntity createShoeLeft(Vector3 position, string mesh, float scale)
         {
             BepuEntity entity = new BepuEntity();
@@ -241,7 +241,7 @@ namespace BrakingSystem
             children.Add(entity);
             return entity;
         }
-
+        */
         BepuEntity createWheel(Vector3 position, string mesh, float scale)
         {
             BepuEntity entity = new BepuEntity();
@@ -318,7 +318,7 @@ namespace BrakingSystem
                 children[i].Update(gameTime);
             }
 
-          //  space.Update(timeDelta);
+            space.Update(timeDelta);
 
        
             base.Update(gameTime);
