@@ -29,6 +29,7 @@ namespace BrakingSystem
         SpriteBatch spriteBatch;
        // private Ground ground;
         Space space;
+        Box groundBox;
         Random random = new Random();
         public SpriteBatch SpriteBatch
         {
@@ -83,20 +84,20 @@ namespace BrakingSystem
             ground = new Ground();                        
             children.Add(ground);
             
-         
+         /*
             SlaveCylinder slavecylinder = new SlaveCylinder();
             slavecylinder.pos.X = (float) 3.25; slavecylinder.pos.Y = (float)10.5; slavecylinder.pos.Z = (float)28.8;
             children.Add(slavecylinder);
-
-
+            */
+            /*
             SlavePiston slavepiston = new SlavePiston();
             slavepiston.pos.X = (float)3.25; slavepiston.pos.Y = (float)10.5; slavepiston.pos.Z = (float)28.8;
             children.Add(slavepiston);
-
+            
             SlavePiston slavepiston2 = new SlavePiston();
             slavepiston2.pos.X = (float)3.25; slavepiston2.pos.Y = (float)10.5; slavepiston2.pos.Z = (float)29;
             children.Add(slavepiston2);
-
+*/
             Chassis chassis = new Chassis();
             chassis.pos.X = 0; chassis.pos.Y = 10; chassis.pos.Z = 30;
             children.Add(chassis);
@@ -117,6 +118,7 @@ namespace BrakingSystem
             Wheel wheel = new Wheel();
             wheel.pos.X = (float)3.05; wheel.pos.Y = (float)9.9; wheel.pos.Z = (float)29.25;
             children.Add(wheel);
+
             base.Initialize();
         }
         void createTower()
@@ -128,44 +130,29 @@ namespace BrakingSystem
             }*/
             for (float y = 70; y > 20; y -= 5)
             {
-                createCylinder(new Vector3(0, y, 0), 0, 0, 0);
-            }
-            /*
-            for (float y = 1; y > 0; y -= 1)
-            {
-                createShoeRight(new Vector3(0, y, 0), "BrakeShoeRight23" ,1);
+                createCylinder(new Vector3(4, 10, 28), 1, 1, 1);
             }
 
-            for (float y = 1; y > 0; y -= 1)
+            for (float y = 70; y > 20; y -= 5)
             {
-                createShoeLeft(new Vector3(0, y, 0), "brakeshoeleft2", 1);
+                createPiston1(new Vector3(4, 10, 28), 1, 1, 1);
             }
             /*
             for (float y = 70; y > 20; y -= 5)
             {
-                createShoeLeft(new Vector3(0, y, 0), 0, 0, 0);
-            }
-              */
-            for (float y = 2; y > 1; y -= 1)
-            {
-                createPiston1(new Vector3(0, y, 0), 0, 0, 0);
-            }
-            
-            for (float y = 2; y > 1; y -= 1)
-            {
-                createWheel(new Vector3(4, y, 30), "Wheels4", 1);
-            }
-          //  for (float y = 70; y > 20; y -= 5)
-          //  {
-            //    createShoeLeft(new Vector3(0, y, 0), 0, 0, 0);
-            //}
-            /*
-            for (float y = 70; y > 20; y -= 5)
-            {
-                createShoeRight(new Vector3(0, y, 0), 0, 0, 0);
+                createWheel(new Vector3(0, y, 0), 0, 0, 0);
             }
             */
-            
+            for (float y = 70; y > 20; y -= 5)
+            {
+                createWheel(new Vector3(4, 10, 28), 1, 1, 1);
+            }
+
+            for (float y = 70; y > 20; y -= 5)
+            {
+                createChassis(new Vector3(4, 10, 28), 1, 1, 1);
+            }
+     
         }
         void createCylinder(Vector3 position, float width, float height, float length)
         {        
@@ -242,6 +229,33 @@ namespace BrakingSystem
             return entity;
         }
         */
+        
+        void createWheel(Vector3 position, float width, float height, float length)
+        {
+            BepuEntity theBox = new BepuEntity();
+            theBox.modelName = "Wheels";
+            theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+            theBox.body = new Box(position, width, height, length, 1);
+            theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            space.Add(theBox.body);
+            children.Add(theBox);
+            theBox.HasColor = true;
+        }
+
+        BepuEntity createChassis(Vector3 position, float width, float height, float length)
+        {
+            BepuEntity theChasis = new BepuEntity();
+            theChasis.modelName = "chassis7";
+            theChasis.LoadContent();
+            theChasis.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+            theChasis.body = new Box(position, width, height, length, 1);
+            theChasis.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            theChasis.configureEvents();
+            space.Add(theChasis.body);
+            children.Add(theChasis);
+            return theChasis;
+        }
+        /*
         BepuEntity createWheel(Vector3 position, string mesh, float scale)
         {
             BepuEntity entity = new BepuEntity();
@@ -261,6 +275,7 @@ namespace BrakingSystem
             children.Add(entity);
             return entity;
         }
+         */ 
         /*
         void createShoeRight(Vector3 position, float width, float height, float length)
         {
@@ -272,20 +287,35 @@ namespace BrakingSystem
             space.Add(theBox.body);
             children.Add(theBox);
         }
-         */ 
+         */
+        void resetScene()
+        {
+            for (int i = 0; i < children.Count(); i++)
+            {
+                if (children[i] is BepuEntity)
+                {
+                    children.Remove(children[i]);
+                    i--;
+                }
+            }
+
+            space = null;
+            space = new Space();
+            space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
+
+            groundBox = new Box(Vector3.Zero, ground.width, 0.1f, ground.height);
+            space.Add(groundBox);
+
+            createTower();
+         
+        }
        protected override void LoadContent()
         {
        
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            space = null;
-            space = new Space();
-            space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
-            Box groundBox = new Box(Vector3.Zero, ground.width, 0.1f, ground.height);
-            space.Add(groundBox);
-          // space.Add(fireBall);
-
-            createTower();
-           
+   
+            resetScene();
+         
             foreach (Entity child in children)
             {
                 child.LoadContent();
@@ -317,7 +347,7 @@ namespace BrakingSystem
             {
                 children[i].Update(gameTime);
             }
-
+            
             space.Update(timeDelta);
 
        
