@@ -19,7 +19,7 @@ using BEPUphysics.NarrowPhaseSystems.Pairs;
 
 namespace BrakingSystem
 {
-    class BepuEntity : Entity
+    public class BepuEntity : Entity
     {
         SoundEffect soundEffect;
         SoundEffectInstance soundEffectInstance;

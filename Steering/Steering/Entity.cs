@@ -19,6 +19,7 @@ namespace BrakingSystem
         public Model model = null;
         public Vector3 pos = Vector3.Zero;
         public Model model2 = null;
+        public Vector3 force = Vector3.Zero;
 
         public Vector3 velocity = Vector3.Zero;
         public Vector3 diffuse = new Vector3(1, 1, 1);
@@ -56,7 +57,7 @@ namespace BrakingSystem
             get { return mass; }
             set { mass = value; }
         }
-        public Vector3 force = Vector3.Zero;
+  
         //public abstract void LoadContent();
 
         public virtual void LoadContent()

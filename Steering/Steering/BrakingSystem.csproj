@@ -63,6 +63,9 @@
     <Reference Include="BEPUphysics">
       <HintPath>..\..\x86\Release\BEPUphysics.dll</HintPath>
     </Reference>
+    <Reference Include="BEPUphysicsDrawer">
+      <HintPath>..\..\BEPUphysicsDrawer\bin\x86\Debug\BEPUphysicsDrawer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -111,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BepuEntity.cs" />
+    <Compile Include="BoundingBoxDrawer.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Chassis.cs" />
     <Compile Include="BrakeShoeLeft.cs" />

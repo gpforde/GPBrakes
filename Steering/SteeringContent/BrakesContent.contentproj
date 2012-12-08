@@ -42,13 +42,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="fighter.x">
-      <Name>fighter</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="thor.jpg">
       <Name>thor</Name>
       <Importer>TextureImporter</Importer>
@@ -83,13 +76,6 @@
       <Name>oldGround</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="dalek.x">
-      <Name>dalek</Name>
-      <Importer>XImporter</Importer>
-      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -204,15 +190,6 @@
       <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
       <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
       <ProcessorParameters_RotationZ>270</ProcessorParameters_RotationZ>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Wheels.FBX">
-      <Name>Wheels</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
-      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>

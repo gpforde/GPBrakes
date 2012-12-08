@@ -57,8 +57,9 @@ namespace BrakingSystem
         }
 
         public override void Update(GameTime gameTime)
-        {
 
+        {
+            
             basicEffect.World = Matrix.Identity;
             basicEffect.Projection = XNAGame.Instance().Camera.projection;
             basicEffect.View = XNAGame.Instance().Camera.view;
