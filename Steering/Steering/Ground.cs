@@ -14,7 +14,7 @@ namespace BrakingSystem
         VertexPositionTexture[] vertices;
         BasicEffect basicEffect;
        public float width = 500;
-       public float height = 500;
+       public float height =00;
 
         public override void UnloadContent()
         {
