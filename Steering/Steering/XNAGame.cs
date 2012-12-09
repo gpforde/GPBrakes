@@ -97,6 +97,8 @@ namespace BrakingSystem
             int midY = GraphicsDeviceManager.DefaultBackBufferWidth / 2;
             Mouse.SetPosition(midX, midY);
 
+            
+
             bepuboundingboxdrawer = new BoundingBoxDrawer(this);
             bepuDrawer = new BasicEffect(GraphicsDevice);
 
@@ -187,26 +189,6 @@ namespace BrakingSystem
             children.Add(theBox);
             theBox.HasColor = true;
             return theBox;
-        }
-
-        BepuEntity createShoeLeft(Vector3 position, string mesh, float scale)
-        {
-            BepuEntity entity = new BepuEntity();
-            entity.modelName = "brakeshoeleft2";
-            entity.LoadContent();
-            Vector3[] vertices;
-            int[] indices;
-            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
-            AffineTransform localTransform = new AffineTransform(new Vector3(scale, scale, scale), Quaternion.Identity, new Vector3(0, 0, 0));
-            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
-            entity.localTransform = Matrix.CreateScale(scale, scale, scale);
-            entity.body = mobileMesh;
-            entity.HasColor = true;
-            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
-            entity.body.Position = position;
-            space.Add(entity.body);
-            children.Add(entity);
-            return entity;
         }
         /*
         BepuEntity createShoeRight(Vector3 position, string mesh, float scale)
@@ -547,7 +529,8 @@ namespace BrakingSystem
         {
        
             spriteBatch = new SpriteBatch(GraphicsDevice);
-   
+            Song jazz;
+            jazz = Content.Load<Song>("swingguitars");
             resetScene();
          
             foreach (Entity child in children)
@@ -581,8 +564,12 @@ namespace BrakingSystem
                 this.Exit();
             }
 
-
-            
+            Song jazz;
+            jazz = Content.Load<Song>("swingguitars");
+            if (keyState.IsKeyDown(Keys.J))
+            {
+            MediaPlayer.Play(jazz);
+            }
 
             if (keyState.IsKeyDown(Keys.Up))
             {
