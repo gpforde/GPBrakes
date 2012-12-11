@@ -63,9 +63,6 @@
     <Reference Include="BEPUphysics">
       <HintPath>..\..\x86\Release\BEPUphysics.dll</HintPath>
     </Reference>
-    <Reference Include="BEPUphysicsDrawer">
-      <HintPath>..\..\BEPUphysicsDrawer\bin\x86\Debug\BEPUphysicsDrawer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -137,6 +134,10 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\bepuphysics_ee3a76f51234\BEPUphysicsDrawer\BEPUphysicsDrawer.csproj">
+      <Project>{A7931B1B-6BF4-43C5-B924-6AEB732243BA}</Project>
+      <Name>BEPUphysicsDrawer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SteeringContent\BrakesContent.contentproj">
       <Name>BrakesContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

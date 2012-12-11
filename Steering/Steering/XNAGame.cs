@@ -22,6 +22,7 @@ using BEPUphysics.Vehicle;
 using BEPUphysicsDrawer;
 using BEPUphysics.Collidables.MobileCollidables;
 using BEPUphysics.DataStructures;
+using BEPUphysicsDrawer.Models;
 
 namespace BrakingSystem
 {
@@ -88,7 +89,15 @@ namespace BrakingSystem
 
             Content.RootDirectory = "Content";
         }
-        
+
+        private InstancedModelDrawer modelDrawer;
+
+        public InstancedModelDrawer ModelDrawer
+        {
+            get { return modelDrawer; }
+            set { modelDrawer = value; }
+        }
+
         protected override void Initialize()
         {
           
@@ -97,7 +106,8 @@ namespace BrakingSystem
             int midY = GraphicsDeviceManager.DefaultBackBufferWidth / 2;
             Mouse.SetPosition(midX, midY);
 
-            
+            modelDrawer = new InstancedModelDrawer(this);
+            modelDrawer.IsWireframe = true;
 
             bepuboundingboxdrawer = new BoundingBoxDrawer(this);
             bepuDrawer = new BasicEffect(GraphicsDevice);
@@ -177,66 +187,66 @@ namespace BrakingSystem
             }
      */
         }
-
-        BepuEntity createPiston1(Vector3 position, float width, float height, float length)
+        
+        BepuEntity createPiston1(Vector3 position,float pistonheight, float pistonradius)
         {
-            BepuEntity theBox = new BepuEntity();
-            theBox.modelName = "slavepiston";
-            theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
-            theBox.body = new Box(position, width, height, length, 1);
-            theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
-            space.Add(theBox.body);
-            children.Add(theBox);
-            theBox.HasColor = true;
-            return theBox;
+            BepuEntity theBox1 = new BepuEntity();
+            theBox1.modelName = "slavepiston";
+            theBox1.body = new Cylinder(position,  .4f, .22f,1);
+            theBox1.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            theBox1.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
+            space.Add(theBox1.body);
+            children.Add(theBox1);
+            theBox1.HasColor = true;
+            modelDrawer.Add(theBox1.body);
+            return theBox1;
         }
-        /*
-        BepuEntity createShoeRight(Vector3 position, string mesh, float scale)
-        {
-            BepuEntity entity = new BepuEntity();
-            entity.modelName = "BrakeShoeRight23";
-            entity.LoadContent();
-            Vector3[] vertices;
-            int[] indices;
-            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
-            AffineTransform localTransform = new AffineTransform(new Vector3(scale, scale, scale), Quaternion.Identity, new Vector3(0, 0, 0));
-            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
-            entity.localTransform = Matrix.CreateScale(scale, scale, scale);
-            entity.body = mobileMesh;
-            entity.HasColor = true;
-            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
-            entity.body.Position = position;
-            space.Add(entity.body);
-            children.Add(entity);
-            return entity;
-        }
-        */
+        //SHOE AS BOX
         BepuEntity createShoeRight(Vector3 position, float width, float height, float length)
         {
             BepuEntity theBox = new BepuEntity();
             theBox.modelName = "BrakeShoeRight23";
             theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
-            theBox.body = new Box(position, width, height, length, 1);
+            theBox.body = new Box(position, 2, 3, .5f, 1);
             theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
             space.Add(theBox.body);
             children.Add(theBox);
             theBox.HasColor = true;
+            modelDrawer.Add(theBox.body);
             return theBox;
         }
-
+        //SHOE AS CYLINDER/*
+        /*
+        BepuEntity createShoeRight(Vector3 position, float rightshoeheight, float rightshoeradius)
+        {
+            BepuEntity theBox = new BepuEntity();
+            theBox.modelName = "BrakeShoeRight23";
+           // theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+            theBox.body = new Cylinder(position, rightshoeheight, rightshoeradius, 1);
+            theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            theBox.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), MathHelper.PiOver2);
+            space.Add(theBox.body);
+            children.Add(theBox);
+            theBox.HasColor = true;
+            modelDrawer.Add(theBox.body);
+            return theBox;
+        }
+        */
 
         BepuEntity createShoeLeft(Vector3 position, float width, float height, float length)
         {
             BepuEntity theBox = new BepuEntity();
             theBox.modelName = "brakeshoeleft2";
             theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
-            theBox.body = new Box(position, width, height, length, 1);
+            theBox.body = new Box(position, 2, 2, .5f, 1);
             theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
             space.Add(theBox.body);
             children.Add(theBox);
             theBox.HasColor = true;
+            modelDrawer.Add(theBox.body);
             return theBox;
         }
+        /*
         BepuEntity createCylinder(Vector3 position, float width, float height, float length)
         {        
             BepuEntity theBox = new BepuEntity();
@@ -247,51 +257,71 @@ namespace BrakingSystem
             space.Add(theBox.body);
             children.Add(theBox);
             theBox.HasColor = true;
+            modelDrawer.Add(theBox.body);
+
             return theBox;
         }
-
-        BepuEntity createHub(Vector3 position, float width, float height, float length)
+        */
+        /*
+        BepuEntity createCylinder(Vector3 position,  float height, float radius)
         {
             BepuEntity theBox = new BepuEntity();
-            theBox.modelName = "hub";
-            theBox.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
-            theBox.body = new Box(position, width, height, length, 1);
+            theBox.modelName = "SlaveCylinder";
+           // theBox.localTransform = Matrix.CreateScale(new Vector3( height, radius));
+            theBox.body = new Cylinder(position, height, radius, 1);
             theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            theBox.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
             space.Add(theBox.body);
             children.Add(theBox);
             theBox.HasColor = true;
+            modelDrawer.Add(theBox.body);
+
+            return theBox;
+        }
+        *///MESH CYLINDER
+        BepuEntity createCylinder(Vector3 position, string mesh, float scale)
+        {
+            BepuEntity entity = new BepuEntity();
+            entity.modelName = "SlaveCylinder";
+            entity.LoadContent();
+            entity.Mass = 0;
+            Vector3[] vertices;
+            int[] indices;
+
+            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
+            AffineTransform localTransform = new AffineTransform(new Vector3(.4f, .4f, .4f), Quaternion.Identity, new Vector3(0, 0, 0));
+            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
+            entity.localTransform = Matrix.CreateScale(1f, 1f,1f);
+            entity.body = mobileMesh;
+            entity.HasColor = true;
+            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            entity.body.Position = position;
+            entity.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
+            space.Add(entity.body);
+            children.Add(entity);
+            modelDrawer.Add(entity.body);
+            return entity;
+        }
+
+
+
+        BepuEntity createHub(Vector3 position,  float hubheight, float hubradius)
+        {
+            BepuEntity theBox = new BepuEntity();
+            theBox.modelName = "hub";
+          //  theBox.localTransform = Matrix.CreateScale(new Vector3(hubheight, hubradius));
+            theBox.body = new Cylinder(position, hubheight, hubradius, 1);
+            theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            theBox.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), MathHelper.PiOver2);
+            space.Add(theBox.body);
+            children.Add(theBox);
+            theBox.HasColor = true;
+            modelDrawer.Add(theBox.body);
             return theBox;
         }
 
 
-
         /*
-        // BepuEntity createWheel(Vector3 position, Entity body, out RevoluteMotor drivingMotor, float wheelWidth, float wheelRadius)
-        BepuEntity createWheel(Vector3 position, float wheelWidth, float wheelRadius)
-        {
-            BepuEntity wheelEntity = new BepuEntity();
-            wheelEntity.modelName = "Wheels4";
-            //        wheelEntity.Material.KineticFriction = 2.5f;
-            //        wheelEntity.Material.StaticFriction = 2.5f;
-            //      wheelEntity.Orientation = Quaternion.CreateFromAxisAngle(Vector3.Forward, MathHelper.PiOver2);
-            wheelEntity.LoadContent();
-            wheelEntity.body = new Cylinder(position, wheelWidth, wheelRadius, wheelRadius);
-            wheelEntity.localTransform = Matrix.CreateScale(wheelRadius, wheelWidth, wheelRadius);
-            wheelEntity.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
-            wheelEntity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
-
-            //       drivingMotor = new RevoluteMotor();
-            //       drivingMotor.Settings.VelocityMotor.Softness = .3f;
-            //   drivingMotor.Settings.MaximumForce = 100;
-            //drivingMotor.IsActive = false;
-
-            space.Add(wheelEntity.body);
-            children.Add(wheelEntity);
-            //space.Add(drivingMotor);
-            return wheelEntity;
-        }
-         */ 
-        
           BepuEntity createWheel(Vector3 position,float wheelWidth, float wheelRadius)      
         {
             BepuEntity wheelEntity = new BepuEntity();
@@ -299,48 +329,89 @@ namespace BrakingSystem
             wheelEntity.LoadContent();
             wheelEntity.body = new Cylinder(position, wheelWidth, wheelRadius, wheelRadius);
             wheelEntity.localTransform = Matrix.CreateScale(wheelRadius, wheelWidth, wheelRadius);
-            wheelEntity.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
+            wheelEntity.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), MathHelper.PiOver2);
             wheelEntity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
             space.Add(wheelEntity.body);
             children.Add(wheelEntity);
+            modelDrawer.Add(wheelEntity.body);
             return wheelEntity;
         }
-        /* MESH VERSION OF WHEEL
+         */ 
+        // MESH VERSION OF WHEEL
           BepuEntity createWheel(Vector3 position, string mesh, float scale)
           {
               BepuEntity entity = new BepuEntity();
-              entity.modelName = "Wheels4";
+              entity.modelName = "Wheels6";
               entity.LoadContent();
               Vector3[] vertices;
               int[] indices;
               TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
               AffineTransform localTransform = new AffineTransform(new Vector3(scale, scale, scale), Quaternion.Identity, new Vector3(0, 0, 0));
               MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
-              entity.localTransform = Matrix.CreateScale(scale, scale, scale);
+              entity.localTransform = Matrix.CreateScale(4.5f, 4.5f, 4.5f);
               entity.body = mobileMesh;
               entity.HasColor = true;
               entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
               entity.body.Position = position;
               space.Add(entity.body);
               children.Add(entity);
+              modelDrawer.Add(entity.body);
               return entity;
-          }*/
+          }
 
-    
-         
+        /*
+          BepuEntity createChassis(Vector3 position, float width, float height, float length)
+          {
+              BepuEntity theChasis = new BepuEntity();
+              theChasis.modelName = "chassis7";
+              theChasis.LoadContent();
+              theChasis.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+              theChasis.body = new Box(position, width, height, length, 1);
+              theChasis.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+              theChasis.configureEvents();
+              space.Add(theChasis.body);
+              children.Add(theChasis);
+              return theChasis;
+          }
+         */
+
+          BepuEntity createChassis(Vector3 position, float width, float height, float length)
+          {
+              BepuEntity theChasis = new BepuEntity();
+              theChasis.modelName = "chassis7";
+              theChasis.LoadContent();
+              theChasis.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+              theChasis.body = new Box(position, 20, 15, 60, 1);
+              theChasis.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+              theChasis.configureEvents();
+              space.Add(theChasis.body);
+              children.Add(theChasis);
+              return theChasis;
+          }
+
+
         public void createVehicle(Vector3 position)
         {
             float width = 4;
             float height = 4;
             float length = 4;
-            
+            float radius = 1;
+            float pistonheight=1;
+            float pistonradius=1;
+            float cylinderheight = 2;
+            float cylinderradius = 2;
+            float rightshoeheight = 1;
+            float rightshoeradius = 1;
+            float hubheight = .1f;
+            float hubradius = 3.25f;
             RevoluteJoint joint;
             WeldJoint weldjoint;
+            WeldJoint weldjoint3;
             BepuEntity chassis = createChassis(position, width, height, length);
             chassis.LoadContent();
-            chassis.body.Mass = 0;
-            float wheelWidth = 2;
-            float wheelRadius = 2;
+            chassis.body.Mass = 5;
+            float wheelWidth = 3;
+            float wheelRadius = .006f;
             //chassis.Material = new chassis.Material(.3f, .2f, .2f);
             BepuEntity wheel;
             BepuEntity cylinder1;
@@ -354,59 +425,89 @@ namespace BrakingSystem
             position = pos;
             chassisboundary = new BoundingBoxDrawer(this);
             bepudrawer = new BasicEffect(GraphicsDevice);
-        
 
 
-            
-            shoeright = createShoeRight(new Vector3(position.X - (width + 27), position.Y, position.Z - (length / 2)), width, height, length);
+            shoeright = createShoeRight(new Vector3(position.X - (width + 12), position.Y, position.Z - (length / 2)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(0, 0, 1));
             space.Add(joint);
-            shoeright = createShoeRight(new Vector3(position.X + (width + 27), position.Y, position.Z - (length / 2)), width, height, length);
+            shoeright = createShoeRight(new Vector3(position.X + (width + 12), position.Y, position.Z - (length / 2)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(1, 0, 0));
             space.Add(joint);
-            shoeright = createShoeRight(new Vector3(position.X - (width + 27), position.Y, position.Z + (length + 23)), width, height, length);
+            shoeright = createShoeRight(new Vector3(position.X - (width + 12), position.Y, position.Z + (length + 23)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(1, 0, 0));
             space.Add(joint);
-            shoeright = createShoeRight(new Vector3(position.X + (width + 27), position.Y, position.Z + (length + 23)), width, height, length);
+            shoeright = createShoeRight(new Vector3(position.X + (width + 12), position.Y, position.Z + (length + 23)),  width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(0, 1, 0));
             space.Add(joint);
-
-            shoeleft = createShoeLeft(new Vector3(position.X - (width + 31), position.Y, position.Z - (length / 2)), width, height, length);
+            //Shoe as cylinder
+            /*
+            shoeright = createShoeRight(new Vector3(position.X - (width + 27), position.Y, position.Z - (length / 2)), rightshoeheight, rightshoeradius);
+            joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(0, 0, 1));
+            space.Add(joint);
+            shoeright = createShoeRight(new Vector3(position.X + (width + 27), position.Y, position.Z - (length / 2)), rightshoeheight, rightshoeradius);
+            joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(1, 0, 0));
+            space.Add(joint);
+            shoeright = createShoeRight(new Vector3(position.X - (width + 27), position.Y, position.Z + (length + 23)), rightshoeheight, rightshoeradius);
+            joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(1, 0, 0));
+            space.Add(joint);
+            shoeright = createShoeRight(new Vector3(position.X + (width + 27), position.Y, position.Z + (length + 23)), rightshoeheight, rightshoeradius);
+            joint = new RevoluteJoint(chassis.body, shoeright.body, shoeright.body.Position, new Vector3(0, 1, 0));
+            space.Add(joint);
+            */
+            shoeleft = createShoeLeft(new Vector3(position.X - (width + 12), position.Y-2.5f, position.Z - (length / 2)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeleft.body, shoeleft.body.Position, new Vector3(0, 0, 1));
             space.Add(joint);
-            shoeleft = createShoeLeft(new Vector3(position.X + (width + 31), position.Y, position.Z - (length / 2)), width, height, length);
+            shoeleft = createShoeLeft(new Vector3(position.X + (width + 12), position.Y-2.5f, position.Z - (length / 2)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeleft.body, shoeleft.body.Position, new Vector3(1, 0, 0));
             space.Add(joint);
-            shoeleft = createShoeLeft(new Vector3(position.X - (width + 31), position.Y, position.Z + (length + 23)), width, height, length);
+            shoeleft = createShoeLeft(new Vector3(position.X - (width + 12), position.Y-2.5f, position.Z + (length + 23)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeleft.body, shoeleft.body.Position, new Vector3(1, 0, 0));
             space.Add(joint);
-            shoeleft = createShoeLeft(new Vector3(position.X + (width + 31), position.Y, position.Z + (length + 23)), width, height, length);
+            shoeleft = createShoeLeft(new Vector3(position.X + (width + 12), position.Y-2.5f, position.Z + (length + 23)), width, height, length);
             joint = new RevoluteJoint(chassis.body, shoeleft.body, shoeleft.body.Position, new Vector3(0, 1, 0));
             space.Add(joint);
             
-            hub = createHub(new Vector3(position.X - (width + 15), position.Y, position.Z - (length / 2)), width, height, length);         
+            hub = createHub(new Vector3(position.X - (width + 10), position.Y, position.Z - (length - 2)), hubheight, hubradius);         
             weldjoint = new WeldJoint(chassis.body, hub.body);
             space.Add(weldjoint);
-            hub = createHub(new Vector3(position.X + (width + 15), position.Y, position.Z - (length / 2)), width, height, length);
+            hub = createHub(new Vector3(position.X + (width + 10), position.Y, position.Z - (length - 2)), hubheight, hubradius);
             weldjoint = new WeldJoint(chassis.body, hub.body);
             space.Add(weldjoint);
-            hub = createHub(new Vector3(position.X - (width + 15), position.Y, position.Z + (length + 23)), width, height, length);
-            weldjoint = new WeldJoint(chassis.body, hub.body);
-            space.Add(weldjoint);
-            
-            hub = createHub(new Vector3(position.X + (width + 15), position.Y, position.Z + (length + 23)), width, height, length);
+            hub = createHub(new Vector3(position.X - (width + 10), position.Y, position.Z + (length + 23)), hubheight, hubradius);
             weldjoint = new WeldJoint(chassis.body, hub.body);
             space.Add(weldjoint);
             
-            /*
-            hub = createHub(new Vector3(position.X + (width + 12), position.Y, position.Z + (length + 23)), width, height, length);
-            joint = new RevoluteJoint(chassis.body, hub.body, hub.body.Position, new Vector3(1, 0, 0));
-            joint.Motor.Settings.VelocityMotor.GoalVelocity = 0;
-            joint.Motor.IsActive = false;
-            space.Add(joint);
-            */
-            
+            hub = createHub(new Vector3(position.X + (width + 10), position.Y, position.Z + (length + 23)), hubheight, hubradius);
+            weldjoint = new WeldJoint(chassis.body, hub.body);
+            space.Add(weldjoint);
 
+
+
+            cylinder1 = createCylinder(new Vector3(position.X - (width + 11), position.Y+2, position.Z - (length / 2)), "SlaveCylinder", 1);
+            joint = new RevoluteJoint(chassis.body, cylinder1.body, cylinder1.body.Position, new Vector3(0, 0, 1));
+            space.Add(joint);
+            
+            //weldjoint = new WeldJoint(chassis.body, cylinder1.body);
+           // space.Add(weldjoint);
+            cylinder1 = createCylinder(new Vector3(position.X + (width + 11), position.Y+2, position.Z - (length / 2)), "SlaveCylinder", 1);
+            joint = new RevoluteJoint(chassis.body, cylinder1.body, cylinder1.body.Position, new Vector3(0, 0, 1));
+            space.Add(joint);
+            
+            // weldjoint = new WeldJoint(chassis.body, cylinder1.body);
+           // space.Add(weldjoint);
+            cylinder1 = createCylinder(new Vector3(position.X - (width + 11), position.Y+2, position.Z + (length + 23)), "SlaveCylinder", 1);
+            joint = new RevoluteJoint(chassis.body, cylinder1.body, cylinder1.body.Position, new Vector3(0, 0, 1));
+            space.Add(joint);
+            
+            //  weldjoint = new WeldJoint(chassis.body, cylinder1.body);
+            //space.Add(weldjoint);
+            cylinder1 = createCylinder(new Vector3(position.X + (width + 11), position.Y+2, position.Z + (length + 23)), "SlaveCylinder", 1);
+            joint = new RevoluteJoint(chassis.body, cylinder1.body, cylinder1.body.Position, new Vector3(0, 0, 1));
+            space.Add(joint);
+            
+            //weldjoint = new WeldJoint(chassis.body, cylinder1.body);
+            //space.Add(weldjoint);
+            /*
             cylinder1 = createCylinder(new Vector3(position.X - (width + 19), position.Y, position.Z - (length / 2)), width, height, length);
             weldjoint = new WeldJoint(hub.body, cylinder1.body);
             space.Add(weldjoint);
@@ -419,22 +520,22 @@ namespace BrakingSystem
             cylinder1 = createCylinder(new Vector3(position.X + (width + 19), position.Y, position.Z + (length + 23)), width, height, length);
             weldjoint = new WeldJoint(hub.body, cylinder1.body);
             space.Add(weldjoint);
-            
-            piston = createPiston1(new Vector3(position.X - (width + 23), position.Y, position.Z - (length / 2)), width, height, length);
+            */
+            piston = createPiston1(new Vector3(position.X - (width + 11), position.Y+2, position.Z - (length / 2)), pistonheight,pistonradius);
             joint = new RevoluteJoint(chassis.body, piston.body, piston.body.Position, new Vector3(0, 0, 1));
             space.Add(joint);
-            piston = createPiston1(new Vector3(position.X + (width + 23), position.Y, position.Z - (length / 2)), width, height, length);
+            piston = createPiston1(new Vector3(position.X + (width + 11), position.Y+2, position.Z - (length / 2)), pistonheight, pistonradius);
             joint = new RevoluteJoint(chassis.body, piston.body, piston.body.Position, new Vector3(1, 0, 0));
             space.Add(joint);
-            piston = createPiston1(new Vector3(position.X - (width + 23), position.Y, position.Z + (length + 23)), width, height, length);
+            piston = createPiston1(new Vector3(position.X - (width + 11), position.Y+2, position.Z + (length + 23)), pistonheight, pistonradius);
             joint = new RevoluteJoint(chassis.body, piston.body, piston.body.Position, new Vector3(1, 0, 0));
             space.Add(joint);
-            piston = createPiston1(new Vector3(position.X + (width + 23), position.Y, position.Z + (length + 23)), width, height, length);
+            piston = createPiston1(new Vector3(position.X + (width + 11), position.Y+2, position.Z + (length + 23)), pistonheight, pistonradius);
             joint = new RevoluteJoint(chassis.body, piston.body, piston.body.Position, new Vector3(0, 1, 0));
             space.Add(joint);
 
-            
-            
+            /*
+            //WHEELS AS CYLINDER BEPU ENTITIES
             wheel = createWheel(new Vector3(position.X - (width + 12) + wheelRadius, position.Y, position.Z - (length / 2) - wheelWidth), wheelWidth, wheelRadius);
             joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(1, 0, 0));
             joint.Motor.Settings.VelocityMotor.GoalVelocity = 15;
@@ -458,47 +559,41 @@ namespace BrakingSystem
             joint.Motor.Settings.VelocityMotor.GoalVelocity = 15;
             joint.Motor.IsActive = true;
             space.Add(joint);
-            /*
-            RevoluteJoint hinge;
-            hinge = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(0, 0, 1));
-            hinge.Motor.Settings.VelocityMotor.GoalVelocity = 50;
-            */
-            /*WHEELS AS MESH ENTITYS 
-            wheel = createWheel(new Vector3(position.X - (width + 12) + wheelRadius, position.Y, position.Z - (length / 2) - wheelWidth), "Wheels4", 1);
-            joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(0, 0, 1));
-            space.Add(joint);
-
-            wheel = createWheel(new Vector3(position.X + (width + 12) - wheelRadius, position.Y, position.Z - (length / 2) - wheelWidth), "Wheels4", 1);
+             */ 
+     
+            //WHEELS AS MESH ENTITYS 
+            wheel = createWheel(new Vector3(position.X - (width + 12) + wheelRadius, position.Y, position.Z - (length -5) - wheelWidth), "Wheels6", 1);
             joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(1, 0, 0));
+            joint.Motor.Settings.VelocityMotor.GoalVelocity = 15;
+            joint.Motor.IsActive = false;
             space.Add(joint);
+          
 
-            wheel = createWheel(new Vector3(position.X - (width + 12) + wheelRadius, position.Y, position.Z + (length + 23) + wheelWidth), "Wheels4", 1);
+            wheel = createWheel(new Vector3(position.X + (width + 12) - wheelRadius, position.Y, position.Z - (length -5) - wheelWidth), "Wheels6", 1);
             joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(1, 0, 0));
+            joint.Motor.Settings.VelocityMotor.GoalVelocity = 15;
+        //    joint.Motor.IsActive = true;
             space.Add(joint);
 
-            wheel = createWheel(new Vector3(position.X + (width + 12) - wheelRadius, position.Y, position.Z + (length + 23) + wheelWidth), "Wheels4", 1);
-            joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(0, 1, 0));
+            wheel = createWheel(new Vector3(position.X - (width + 12) + wheelRadius, position.Y, position.Z + (length + 21) + wheelWidth), "Wheels6", 1);
+            joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(1, 0, 0));
+            joint.Motor.Settings.VelocityMotor.GoalVelocity = 15;
+        //    joint.Motor.IsActive = true;
             space.Add(joint);
-            */
 
+            wheel = createWheel(new Vector3(position.X + (width + 12) - wheelRadius, position.Y, position.Z + (length + 21) + wheelWidth), "Wheels6", 1);
+            joint = new RevoluteJoint(chassis.body, wheel.body, wheel.body.Position, new Vector3(1, 0, 0));
+            joint.Motor.Settings.VelocityMotor.GoalVelocity = 15;
+         //   joint.Motor.IsActive = true;
+            space.Add(joint);
+            
+            modelDrawer.Add(chassis.body);
           
         }
 
       
   
-        BepuEntity createChassis(Vector3 position, float width, float height, float length)
-        {
-            BepuEntity theChasis = new BepuEntity();
-            theChasis.modelName = "chassis7";
-            theChasis.LoadContent();
-            theChasis.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
-            theChasis.body = new Box(position, width, height, length, 1);
-            theChasis.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
-            theChasis.configureEvents();
-            space.Add(theChasis.body);
-            children.Add(theChasis);
-            return theChasis;
-        }
+
        
         public void resetScene()
         {
@@ -521,8 +616,8 @@ namespace BrakingSystem
 
             
             createTower();
-            createVehicle(Vector3.Zero);
-            
+           // createVehicle(Vector3.Zero);
+            createVehicle(new Vector3(0,10,0));
 
         }
        protected override void LoadContent()
@@ -554,6 +649,8 @@ namespace BrakingSystem
             float timeDelta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState keyState = Keyboard.GetState();
 
+            modelDrawer.Update();
+
             float speed = 0.5f;
 
             float dirX = (float)Math.Sin(rotation);
@@ -571,31 +668,28 @@ namespace BrakingSystem
             MediaPlayer.Play(jazz);
             }
 
-            if (keyState.IsKeyDown(Keys.Up))
+            if (keyState.IsKeyDown(Keys.R))
             {
-                //chassis.body.Position -= new Vector3((speed * dirX), 0, (speed * dirZ));
-                //speed++;
-                //createVehicle(Vector3.Zero) -= new Vector3((speed * dirX), 0, (speed * dirZ));
-                //createVehicle = speed;
-                //pos -= new Vector3((speed * dirX), 0, (speed * dirZ));
-                //wheel.Position -= new Vector3((speed * dirX), 0, (speed * dirZ));
+               // createVehicle(new Vector3(0, 10, 0)).joint.Motor.IsActive=true;
+                //createVehicle().joint.Motor.IsActive = true;
+
+
+                /*
+ 
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
-                   // createVehicle.chassis.body.Position -= new Vector3((speed * dirX), 0, (speed * dirZ));
 
-                    rotation += (5.0f * timeDelta);
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
-                    rotation -= (5.0f * timeDelta);
+       
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.V))
                 {
-                    speed++;
 
                 }
-
+                */
             }
 
             for (int i = 0; i < children.Count; i++)
@@ -621,20 +715,34 @@ namespace BrakingSystem
             bepudrawer.Projection = Camera.projection;
             //chassisboundary.Draw(bepudrawer, space);
             //bepuboundingboxdrawer.Draw(bepudrawer,space);
-            
 
+           
+            
             GraphicsDevice.Clear(Color.Black);
+            RasterizerState st = new RasterizerState();
+            st.FillMode = FillMode.Solid;
+
+            GraphicsDevice.RasterizerState = st;
             spriteBatch.Begin();
             foreach (Entity child in children)
             {
                 DepthStencilState state = new DepthStencilState();
-                state.DepthBufferEnable = true;                
+                state.DepthBufferEnable = true;           
                 GraphicsDevice.DepthStencilState = state;
                 child.Draw(gameTime);
             }
 
-            spriteBatch.End();            
+            spriteBatch.End();
+            modelDrawer.Draw(Camera.getView(), Camera.getProjection());
         }
+        /*
+       public void Motor(KeyboardState motoron)
+       {
+           if (keyState.IsKeyDown(Keys.R))
+           {
+               createVehicle.joint.Motor.IsActive = false;
+           }
+       }*/
 
         public Camera Camera
         {

@@ -84,6 +84,7 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.03</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +93,7 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.03</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -109,7 +111,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>0.05</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +201,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <ProcessorParameters_Scale>0.06</ProcessorParameters_Scale>
-      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +208,24 @@
       <Name>swingguitars</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Wheels5.FBX">
+      <Name>Wheels5</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Wheels6.FBX">
+      <Name>Wheels6</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.06</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationY>90</ProcessorParameters_RotationY>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
