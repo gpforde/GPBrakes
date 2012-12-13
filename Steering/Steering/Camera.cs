@@ -59,23 +59,7 @@ namespace BrakingSystem
             yaw(-(float)deltaX / 100.0f);
             pitch(-(float)deltaY / 100.0f);
            Mouse.SetPosition(midX, midY);
-            /*
-            if (mouseState.LeftButton == ButtonState.Pressed)
-            {
-                Vector3 newTargetPos= pos + (look * 50.0f);
-                //newTargetPos.Y = 10;
-                XNAGame.Instance().Dalek.targetPos = newTargetPos;
-                
-            }
 
-            if (mouseState.RightButton == ButtonState.Pressed)
-            {
-                Vector3 newTargetPos = pos;
-                XNAGame.Instance().Dalek.targetPos = newTargetPos;
-
-            }
-            
-            */
             if (keyboardState.IsKeyDown(Keys.LeftShift))
             {
                 timeDelta *= 20.0f;

@@ -10,28 +10,52 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using BEPUphysics;
+using BEPUphysics.Entities.Prefabs;
+using BEPUphysics.Entities;
+using BEPUphysics.CollisionRuleManagement;
+using BEPUphysics.MathExtensions;
+using BEPUphysics.Constraints.TwoEntity.Joints;
+using BEPUphysics.Constraints.TwoEntity.Motors;
+using BEPUphysics.Constraints.TwoEntity.JointLimits;
+using BEPUphysics.Constraints.SolverGroups;
+using BEPUphysics.Collidables;
+using BEPUphysics.Vehicle;
+using BEPUphysicsDrawer;
+using BEPUphysics.Collidables.MobileCollidables;
+using BEPUphysics.DataStructures;
+using BEPUphysicsDrawer.Models;
 
 namespace BrakingSystem
 {
     class BrakeShoeRight : Entity
     {
-        float mass2;
+        
 
         public BrakeShoeRight()
         {
-            force = Vector3.Zero;
-            mass2 = 1.0f;
+
+        }
+
+        public BepuEntity createShoeRight(Vector3 position, float width, float height, float length)
+        {
+            BepuEntity theBox2 = new BepuEntity();
+            theBox2.modelName = "BrakeShoeRight23";
+            theBox2.localTransform = Matrix.CreateScale(new Vector3(width, height, length));
+            theBox2.body = new Box(position, 2, 6, .5f, 1);
+            XNAGame.Instance().space.Add(theBox2.body);
+            XNAGame.Instance().children.Add(theBox2);
+            theBox2.HasColor = true;
+           // modelDrawer.Add(theBox2.body);
+            return theBox2;
         }
 
         public override void LoadContent()
         {
-            model = XNAGame.Instance().Content.Load<Model>("BrakeShoeRight23");
+
         }
 
-        public void push(Vector3 force)
-        {
-            this.force += force;
-        }
+
 
 
         public override void Update(GameTime gameTime)
@@ -49,22 +73,7 @@ namespace BrakingSystem
 
         public override void Draw(GameTime gameTime)
         {
-            // Draw the mesh
-            if (model != null)
-            {
-                foreach (ModelMesh mesh in model.Meshes)
-                {
-                    foreach (BasicEffect effect in mesh.Effects)
-                    {
-                        effect.EnableDefaultLighting();
-                        effect.PreferPerPixelLighting = true;
-                        effect.World = worldTransform;
-                        effect.Projection = XNAGame.Instance().Camera.getProjection();
-                        effect.View = XNAGame.Instance().Camera.getView();
-                    }
-                    mesh.Draw();
-                }
-            }
+           
         }
     }
 }

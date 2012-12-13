@@ -10,30 +10,57 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using BEPUphysics;
+using BEPUphysics.Entities.Prefabs;
+using BEPUphysics.Entities;
+using BEPUphysics.CollisionRuleManagement;
+using BEPUphysics.MathExtensions;
+using BEPUphysics.Constraints.TwoEntity.Joints;
+using BEPUphysics.Constraints.TwoEntity.Motors;
+using BEPUphysics.Constraints.TwoEntity.JointLimits;
+using BEPUphysics.Constraints.SolverGroups;
+using BEPUphysics.Collidables;
+using BEPUphysics.Vehicle;
+using BEPUphysicsDrawer;
+using BEPUphysics.Collidables.MobileCollidables;
+using BEPUphysics.DataStructures;
+using BEPUphysicsDrawer.Models;
 
 namespace BrakingSystem
 {
-    class Hub:Entity
+    public class Hub:Entity
     {
-        float mass2;
+        
 
         public Hub()
         {
-            force = Vector3.Zero;
-            mass2 = 1.0f;
-            colour = Color.Red;
-        }
 
+            
+        }
+        
+        public BepuEntity createHub(Vector3 position, float hubheight, float hubradius)
+        {
+            BepuEntity theBox6 = new BepuEntity();
+            theBox6.modelName = "hub";
+            //  theBox.localTransform = Matrix.CreateScale(new Vector3(hubheight, hubradius));
+            theBox6.body = new Cylinder(position, hubheight, hubradius, 1);
+            theBox6.HasColor = true;
+           // theBox.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+            theBox6.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(0, 0, 1), MathHelper.PiOver2);
+            XNAGame.Instance().space.Add(theBox6.body);
+            XNAGame.Instance().children.Add(theBox6);
+
+            // modelDrawer.Add(theBox.body);
+            return theBox6;
+        }
+         
         public override void LoadContent()
         {
-            model = XNAGame.Instance().Content.Load<Model>("hub");
+            
         }
+        
 
-        public void push(Vector3 force)
-        {
-            this.force += force;
-        }
-
+        
 
         public override void Update(GameTime gameTime)
         {
@@ -50,27 +77,7 @@ namespace BrakingSystem
 
         public override void Draw(GameTime gameTime)
         {
-            // Draw the mesh
-            if (model != null)
-            {
-                foreach (ModelMesh mesh in model.Meshes)
-                {
-                    foreach (BasicEffect effect in mesh.Effects)
-                    {
-                        
-                        effect.EnableDefaultLighting();
-                        effect.PreferPerPixelLighting = true;
-                        effect.World = worldTransform;
-                        effect.Projection = XNAGame.Instance().Camera.getProjection();
-                        effect.View = XNAGame.Instance().Camera.getView();
-                        
-                        //Draw(worldTransform, XNAGame.Instance().Camera.getView(), XNAGame.Instance().Camera.getProjection(), colour);
-                    }
-                    mesh.Draw();
-
-                }
-                
-            }
+           
         }
     }
 }

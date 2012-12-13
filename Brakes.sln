@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrakingSystem", "Steering\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrakesContent", "Steering\SteeringContent\BrakesContent.contentproj", "{C9C62848-1E68-4CF5-9064-62325173C2B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEPUphysicsDrawer", "..\bepuphysics_ee3a76f51234\BEPUphysicsDrawer\BEPUphysicsDrawer.csproj", "{A7931B1B-6BF4-43C5-B924-6AEB732243BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEPUphysicsDrawer", "bepuphysics_ee3a76f51234\BEPUphysicsDrawer\BEPUphysicsDrawer.csproj", "{A7931B1B-6BF4-43C5-B924-6AEB732243BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

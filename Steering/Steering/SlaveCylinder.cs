@@ -29,44 +29,39 @@ using BEPUphysicsDrawer.Models;
 
 namespace BrakingSystem
 {
-    public class SlaveCylinder:XNAGame
+    public class SlaveCylinder:Entity
     {
-       
-  /*
-        public SlaveCylinder()
-        {
-            space = null;
-            space = new Space();
-            space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
-        }
-      
-        public BepuEntity createCylinder(Vector3 position, string mesh, float scale)
-        {
 
-            BepuEntity entity = new BepuEntity();
-            entity.modelName = "SlaveCylinder";
-            entity.LoadContent();
-            entity.Mass = 0;
-            Vector3[] vertices;
-            int[] indices;
-
-            TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
-            AffineTransform localTransform = new AffineTransform(new Vector3(.4f, .4f, .4f), Quaternion.Identity, new Vector3(0, 0, 0));
-            MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
-            entity.localTransform = Matrix.CreateScale(1f, 1f, 1f);
-            entity.body = mobileMesh;
-            entity.HasColor = true;
-            entity.diffuse = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
-            entity.body.Position = position;
-            entity.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
-            space.Add(entity.body);
-            children.Add(entity);
-           // modelDrawer.Add(entity.body);
+        
+              public SlaveCylinder()
+              {
             
-            return entity;
-        }
-         */ 
-        protected override void LoadContent()
+              }
+      
+             public  BepuEntity createCylinder(Vector3 position, string mesh, float scale)
+              {
+                  BepuEntity entity = new BepuEntity();
+                  entity.modelName = "SlaveCylinder";
+                  entity.LoadContent();
+                  entity.Mass = 0;
+                  Vector3[] vertices;
+                  int[] indices;
+
+                  TriangleMesh.GetVerticesAndIndicesFromModel(entity.model, out vertices, out indices);
+                  AffineTransform localTransform = new AffineTransform(new Vector3(.4f, .4f, .4f), Quaternion.Identity, new Vector3(0, 0, 0));
+                  MobileMesh mobileMesh = new MobileMesh(vertices, indices, localTransform, BEPUphysics.CollisionShapes.MobileMeshSolidity.Counterclockwise, 1);
+                  entity.localTransform = Matrix.CreateScale(1f, 1f,1f);
+                  entity.body = mobileMesh;
+                  entity.HasColor = true;
+                  entity.body.Position = position;
+                  entity.body.Orientation = Quaternion.CreateFromAxisAngle(new Vector3(1, 0, 0), MathHelper.PiOver2);
+                  XNAGame.Instance().space.Add(entity.body);
+                  XNAGame.Instance().children.Add(entity);
+                 // modelDrawer.Add(entity.body);
+                  return entity;
+              }
+               
+        public override void LoadContent()
         {
 
         }
@@ -77,7 +72,7 @@ namespace BrakingSystem
         }
 
 
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             
 
@@ -85,12 +80,12 @@ namespace BrakingSystem
             base.Update(gameTime);
         }
 
-        protected override void UnloadContent()
+        public override void UnloadContent()
         {
             
         }
 
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             
         }

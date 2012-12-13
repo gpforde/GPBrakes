@@ -30,8 +30,7 @@ namespace BrakingSystem
         public override void LoadContent()
         {
 
-           // soundEffect = XNAGame.Instance.Content.Load<SoundEffect>("Hit" + (XNAGame.Instance.Random.Next(6) + 1));
-            //soundEffectInstance = soundEffect.CreateInstance();
+  
             base.LoadContent();
         }
 
@@ -45,9 +44,7 @@ namespace BrakingSystem
             if (soundEffect != null)
             {
                 emitter.Position = body.Position / 5.0f;
-               // listener.Position = XNAGame.Instance.Camera.Position / 5.0f;
-              //  soundEffectInstance.Apply3D(listener, emitter);
-              //  soundEffectInstance.Play();
+   
 
             }
         }

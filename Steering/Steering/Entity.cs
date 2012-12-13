@@ -15,6 +15,7 @@ namespace BrakingSystem
 {
     public abstract class Entity
     {
+
         public string modelName;
         public Model model = null;
         public Vector3 pos = Vector3.Zero;

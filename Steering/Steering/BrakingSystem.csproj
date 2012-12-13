@@ -59,6 +59,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BEPUphysics">
       <HintPath>..\..\x86\Release\BEPUphysics.dll</HintPath>
@@ -116,17 +119,15 @@
     <Compile Include="Chassis.cs" />
     <Compile Include="BrakeShoeLeft.cs" />
     <Compile Include="BrakeShoeRight.cs" />
+    <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />
     <Compile Include="Hub.cs" />
     <Compile Include="SlavePiston.cs" />
     <Compile Include="SlaveCylinder.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="Dalek.cs" />
-    <Compile Include="Fighter.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Sphere.cs" />
     <Compile Include="XNAGame.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +135,7 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bepuphysics_ee3a76f51234\BEPUphysicsDrawer\BEPUphysicsDrawer.csproj">
+    <ProjectReference Include="..\..\bepuphysics_ee3a76f51234\BEPUphysicsDrawer\BEPUphysicsDrawer.csproj">
       <Project>{A7931B1B-6BF4-43C5-B924-6AEB732243BA}</Project>
       <Name>BEPUphysicsDrawer</Name>
     </ProjectReference>
