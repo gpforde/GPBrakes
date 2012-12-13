@@ -96,6 +96,7 @@ namespace BrakingSystem
                         {
                             effect.DiffuseColor = diffuse;
                         }
+
                         effect.World = localTransform * worldTransform;
                         effect.Projection = XNAGame.Instance().Camera.getProjection();
                         effect.View = XNAGame.Instance().Camera.getView();
